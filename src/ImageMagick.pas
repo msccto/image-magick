@@ -52,10 +52,10 @@ type
 
 const
 {$ifdef MSWINDOWS}
-//  MagickExport = 'CORE_RL_magick_.dll';   // ImageMagick 6.9
-//  WandExport = 'CORE_RL_Wand_.dll';       // ImageMagick 6.9
-  MagickExport = 'CORE_RL_MagickCore_.dll'; // ImageMagic >7
-  WandExport = 'CORE_RL_MagickWand_.dll';   // ImageMagic >7
+  MagickExport = 'CORE_RL_magick_.dll';   // ImageMagick 6.9
+  WandExport = 'CORE_RL_Wand_.dll';       // ImageMagick 6.9
+//  MagickExport = 'CORE_RL_MagickCore_.dll'; // ImageMagic >7
+//  WandExport = 'CORE_RL_MagickWand_.dll';   // ImageMagic >7
 {$else}
   MagickExport = 'libMagickCore';
   WandExport = 'libMagickWand'; // Previous ImageMagick versions used 'libWand'
