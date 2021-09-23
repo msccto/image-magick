@@ -18,13 +18,14 @@
 
 type
   NoiseType = ( 
-  UndefinedNoise,
-  UniformNoise,
-  GaussianNoise,
-  MultiplicativeGaussianNoise,
-  ImpulseNoise,
-  LaplacianNoise,
-  PoissonNoise
+      UndefinedNoise,
+      UniformNoise,
+      GaussianNoise,
+      MultiplicativeGaussianNoise,
+      ImpulseNoise,
+      LaplacianNoise,
+      PoissonNoise,
+      RandomNoise
  );
 
 {extern MagickExport Image

@@ -26,7 +26,7 @@ type
 
     name: array[1..MaxTextExtent] of char;
 
-    exception: ExceptionInfo;
+    exception: PExceptionInfo;
 
     pixel: MagickPixelPacket;
 

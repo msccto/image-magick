@@ -17,15 +17,15 @@
 }
 
 type
-  ViewInfo = record
+  ViewInfoXX = record
     image: PImage;
 
     id: culong;
 
     signature: culong;
   end;
-  
-  PViewInfo = ^ViewInfo;
+
+  PViewInfoXX = ^ViewInfoXX;
 
 {extern MagickExport const PixelPacket
   *AcquireCacheView(const ViewInfo *,const long,const long,const unsigned long,

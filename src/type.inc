@@ -37,10 +37,12 @@ type
   NormalStyle,
   ItalicStyle,
   ObliqueStyle,
-  AnyStyle
+  AnyStyle,
+  BoldStyle  // deprecated */
  );
 
 type
+  PTypeInfo = ^TypeInfo;
   TypeInfo = record
     face: culong;
 
@@ -63,10 +65,7 @@ type
 
     stealth: MagickBooleanType;
 
-    previous, next: Pointer;
-{  struct _TypeInfo
-    *previous,
-    *next;  /* deprecated, use GetTypeInfoList() */}
+    previous, next: PTypeInfo;
 
     signature: culong;
   end;

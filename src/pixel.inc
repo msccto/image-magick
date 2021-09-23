@@ -36,11 +36,18 @@ type
   OpacityQuantum,
   RedQuantum,
   RGBAQuantum,
+  BGRAQuantum,
   RGBOQuantum,
   RGBQuantum,
   YellowQuantum,
-  GrayPadQuantum,
-  RGBPadQuantum
+  GrayPadQuantum,  // deprecated */
+  RGBPadQuantum,
+  CbYCrYQuantum,
+  CbYCrQuantum,
+  CbYCrAQuantum,
+  CMYKOQuantum,
+  BGRQuantum,
+  BGROQuantum
  );
 
 type
@@ -52,26 +59,6 @@ type
     index: culong;
   end;
 
-type
-  MagickPixelPacket = record
-    storage_class: ClassType; // Added after 6.2
-
-    colorspace: ColorspaceType;
-
-    matte: MagickBooleanType;
-
-    fuzz: double;
-
-    depth: culong;
-
-    red,
-    green,
-    blue,
-    opacity,
-    index: MagickRealType;
-  end;
-
-  PMagickPixelPacket = ^MagickPixelPacket;
 
 {extern MagickExport MagickBooleanType
   ExportImagePixels(const Image *,const long,const long,const unsigned long,

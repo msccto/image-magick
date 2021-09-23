@@ -50,14 +50,14 @@ type
   
     image: PImage;
 
-    exception: ExceptionInfo;
+    exception: PExceptionInfo;
 
     { MVG output string and housekeeping }
-  
+
     mvg: PAnsiChar;               // MVG data
 
     mvg_alloc,                // total allocated memory
-//    mvg_length: size_t;       // total MVG length
+    mvg_length: culong;       // total MVG length
 
     mvg_width: culong;      // current line width 
 
@@ -67,7 +67,7 @@ type
 
     pattern_bounds: RectangleInfo;
 
-//    pattern_offset: size_t;
+    pattern_offset: culong;
 
     { Graphic wand }
     
@@ -79,7 +79,7 @@ type
 
     { Pretty-printing depth }
   
-    indent_depth: culong;       // number of left-hand pad characters 
+    indent_depth: culong;       // number of left-hand pad characters
 
     { Path operation support }
   

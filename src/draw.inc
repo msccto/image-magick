@@ -118,29 +118,60 @@ type
   RepeatSpread
  );
 
+ type
+  PointInfo = record
+    x, y: double;
+  end;
+
+  PPointInfo = ^PointInfo;
+
+ type
+  MagickPixelPacket = record
+    storage_class: ClassType; // Added after 6.2
+
+    colorspace: ColorspaceType;
+
+    matte: MagickBooleanType;
+
+    fuzz: double;
+
+    depth: culong;
+
+    red,
+    green,
+    blue,
+    opacity,
+    index: MagickRealType;
+  end;
+
+  PMagickPixelPacket = ^MagickPixelPacket;
+
+type
+  StopInfo = record
+    color: MagickPixelPacket;
+    offset: MagickRealType;
+  end;
+
+  PStopInfo = ^StopInfo;
+
 type
   GradientInfo = record
     type_: GradientType;
-
-    color: PixelPacket;
-
-    stop: SegmentInfo;
-
-    length: culong;
-
+    bounding_box: RectangleInfo;
+    gradient_vector: SegmentInfo;
+    stops:  PStopInfo;
+    number_stops: culong;
     spread: SpreadMethod;
-
     debug: MagickBooleanType;
-
     signature: culong;
-
-    previous, next: Pointer;
-{  struct _GradientInfo
-    *previous,
-    *next;}
+    center: PointInfo;
+    radius, angle: MagickRealType;
+    radii: PointInfo;
   end;
 
 type
+  PElementReference = ^ElementReference;
+
   ElementReference = record
     id: PAnsiChar;
 
@@ -150,11 +181,27 @@ type
 
     signature: culong;
 
-    previous, next: Pointer;
-{  struct _ElementReference
-    *previous,
-    *next;}
+    previous, next: PElementReference;
   end;
+
+type
+ DirectionType = (
+  UndefinedDirection,
+  RightToLeftDirection,
+  LeftToRightDirection
+ );
+
+type
+ ComplianceType = (
+  UndefinedCompliance,
+  NoCompliance = $0000,
+  CSSCompliance = $0001,
+  SVGCompliance = $0001,
+  X11Compliance = $0002,
+  XPMCompliance = $0004,
+  MVGCompliance = $0008,
+  AllCompliance = $7fffffff
+ );
 
 type
   DrawInfo = record
@@ -208,7 +255,7 @@ type
     stretch: StretchType;
 
     weight: culong;
-    
+
     encoding: PAnsiChar;
 
     pointsize: double;
@@ -224,7 +271,7 @@ type
 
     dash_pattern: Pdouble;
 
-    clip_path: PAnsiChar;
+    clip_mask: PAnsiChar;
 
     bounds: SegmentInfo;
 
@@ -239,18 +286,22 @@ type
     debug: MagickBooleanType;
 
     signature: culong;
+
+    kerning, interword_spacing, interline_spacing: double;
+    direction: DirectionType;
+    fill_opacity, stroke_opacity: double;
+    clip_path: MagickBooleanType;
+    clipping_mask: PImage;
+    compliance: ComplianceType;
+    composite_mask: PImage;
+    id: PAnsiChar;
   end;
   
   PDrawInfo = ^DrawInfo;
   
   PPDrawInfo = ^PDrawInfo;
 
-type
-  PointInfo = record
-    x, y: double;
-  end;
-  
-  PPointInfo = ^PointInfo;
+
 
 type
   PrimitiveInfo = record
@@ -263,6 +314,8 @@ type
     method: PaintMethod;
 
     text: PAnsiChar;
+
+    closed_subpath: MagickBooleanType;
   end;
 
 type
@@ -278,6 +331,7 @@ type
     underline_thickness: double;
 
     bounds: SegmentInfo;
+    origin: PointInfo;
   end;
 
 {extern MagickExport DrawInfo

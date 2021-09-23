@@ -17,6 +17,14 @@
 }
 
 type
+ DitherMethod = (
+  UndefinedDitherMethod,
+  NoDitherMethod,
+  RiemersmaDitherMethod,
+  FloydSteinbergDitherMethod
+ );
+
+type
   QuantizeInfo = record
     number_colors: culong;
 
@@ -28,7 +36,9 @@ type
 
     measure_error: MagickBooleanType;
 
-    signature: culong; 
+    signature: culong;
+
+    dither_method: DitherMethod;
   end;
 	PQuantizeInfo = ^QuantizeInfo;
 

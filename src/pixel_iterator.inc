@@ -17,16 +17,67 @@
 }
 
 type
+ VirtualPixelMethod = (
+  UndefinedVirtualPixelMethod,
+  BackgroundVirtualPixelMethod,
+  ConstantVirtualPixelMethod,  // deprecated */
+  DitherVirtualPixelMethod,
+  EdgeVirtualPixelMethod,
+  MirrorVirtualPixelMethod,
+  RandomVirtualPixelMethod,
+  TileVirtualPixelMethod,
+  TransparentVirtualPixelMethod,
+  MaskVirtualPixelMethod,
+  BlackVirtualPixelMethod,
+  GrayVirtualPixelMethod,
+  WhiteVirtualPixelMethod,
+  HorizontalTileVirtualPixelMethod,
+  VerticalTileVirtualPixelMethod,
+  HorizontalTileEdgeVirtualPixelMethod,
+  VerticalTileEdgeVirtualPixelMethod,
+  CheckerTileVirtualPixelMethod
+ );
+
+type
+  PNexusInfo = ^NexusInfo;
+  PPNexusInfo = ^PNexusInfo;
+
+  NexusInfo = record
+    mapped: MagickBooleanType;
+    region: RectangleInfo;
+    length: MagickSizeType;
+    cache, pixels: PPixelPacket;
+    authentic_pixel_cache: MagickBooleanType;
+    indexes: ^Quantum;
+    signature: culong;
+    virtual_nexus: PNexusInfo;
+  end;
+
+type
+  CacheView = record
+    image: PImage;
+    virtual_pixel_method: VirtualPixelMethod;
+    number_threads: culong;
+    nexus_info: PPNexusInfo;
+    debug: MagickBooleanType;
+    signature: culong;
+  end;
+
+  PCacheView = ^CacheView;
+
+type
   PixelIterator = record
     id: culong;
 
     name: array[0..MaxTextExtent] of char;
 
-    exception: ExceptionInfo;
+    exception: PExceptionInfo;
 
-    view: PViewInfo;
+    view: PCacheView;
 
     region: RectangleInfo;
+
+    active: MagickBooleanType;
 
     y: cint;
 

@@ -20,11 +20,19 @@ type
   ChannelStatistics = record
     depth: culong;
 
-    minima, maxima: Quantum;
+    minima,
+    maxima,
+    sum,
+    sum_squared,
+    sum_cubed,
+    sum_fourth_power,
+    mean,
+    variance,
+    standard_deviation,
+    kurtosis,
+    skewness,
+    entropy: double;
 
-    mean, standard_deviation: double;
-
-    scale: culong;
   end;
   
   PChannelStatistics = ^ChannelStatistics;

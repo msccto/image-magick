@@ -157,8 +157,8 @@ MagickReadImageBlob: function(wand: PMagickWand; const blob: Pointer; const leng
 
 MagickReduceNoiseImage: function(wand: PMagickWand; const radius: double): MagickBooleanType; cdecl;
 MagickRemoveImage: function(wand: PMagickWand): MagickBooleanType; cdecl;
-MagickResampleImage: function(wand: PMagickWand; const x_resolution, y_resolution: double; const filter: FilterTypes; const blur: double): MagickBooleanType; cdecl;
-MagickResizeImage: function(wand: PMagickWand; const columns, rows: culong; const filter: FilterTypes; const blur: double): MagickBooleanType; cdecl;
+MagickResampleImage: function(wand: PMagickWand; const x_resolution, y_resolution: double; const filter: FilterType; const blur: double): MagickBooleanType; cdecl;
+MagickResizeImage: function(wand: PMagickWand; const columns, rows: culong; const filter: FilterType; const blur: double): MagickBooleanType; cdecl;
 MagickRollImage: function(wand: PMagickWand; const x: clong; const y: culong): MagickBooleanType; cdecl;
 MagickRotateImage: function(wand: PMagickWand; const background: PPixelWand; const degrees: double): MagickBooleanType; cdecl;
 MagickSampleImage: function(wand: PMagickWand; const columns, rows: culong): MagickBooleanType; cdecl;

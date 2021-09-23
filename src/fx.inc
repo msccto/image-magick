@@ -30,7 +30,28 @@ type
   RightShiftEvaluateOperator,
   SetEvaluateOperator,
   SubtractEvaluateOperator,
-  XorEvaluateOperator
+  XorEvaluateOperator,
+  PowEvaluateOperator,
+  LogEvaluateOperator,
+  ThresholdEvaluateOperator,
+  ThresholdBlackEvaluateOperator,
+  ThresholdWhiteEvaluateOperator,
+  GaussianNoiseEvaluateOperator,
+  ImpulseNoiseEvaluateOperator,
+  LaplacianNoiseEvaluateOperator,
+  MultiplicativeNoiseEvaluateOperator,
+  PoissonNoiseEvaluateOperator,
+  UniformNoiseEvaluateOperator,
+  CosineEvaluateOperator,
+  SineEvaluateOperator,
+  AddModulusEvaluateOperator,
+  MeanEvaluateOperator,
+  AbsEvaluateOperator,
+  ExponentialEvaluateOperator,
+  MedianEvaluateOperator,
+  SumEvaluateOperator,
+  RootMeanSquareEvaluateOperator,
+  InverseLogEvaluateOperator
  );
 
 {extern MagickExport Image

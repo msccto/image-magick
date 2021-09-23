@@ -94,25 +94,41 @@ type
 type
  ColorspaceType = (
   UndefinedColorspace,
-  RGBColorspace,
-  GRAYColorspace,
+  RGBColorspace,            // Linear RGB colorspace */
+  GRAYColorspace,           // greyscale (non-linear) image (faked 1 channel) */
   TransparentColorspace,
   OHTAColorspace,
-  LABColorspace,
+  LabColorspace,
   XYZColorspace,
   YCbCrColorspace,
   YCCColorspace,
   YIQColorspace,
   YPbPrColorspace,
   YUVColorspace,
-  CMYKColorspace,
-  sRGBColorspace,
+  CMYKColorspace,           // negated linear RGB with black separated */
+  sRGBColorspace,           // Default: non-linear sRGB colorspace */
   HSBColorspace,
   HSLColorspace,
   HWBColorspace,
   Rec601LumaColorspace,
+  Rec601YCbCrColorspace,
   Rec709LumaColorspace,
-  LogColorspace
+  Rec709YCbCrColorspace,
+  LogColorspace,
+  CMYColorspace,            // negated linear RGB colorspace */
+  LuvColorspace,
+  HCLColorspace,
+  LCHColorspace,            // alias for LCHuv */
+  LMSColorspace,
+  LCHabColorspace,          // Cylindrical (Polar) Lab */
+  LCHuvColorspace,          // Cylindrical (Polar) Luv */
+  scRGBColorspace,
+  HSIColorspace,
+  HSVColorspace,            // alias for HSB */
+  HCLpColorspace,
+  YDbDrColorspace,
+  xyYColorspace,
+  LinearGRAYColorspace      // greyscale (linear) image (faked 1 channel) */
  );
 
   PColorspaceType = ^ColorspaceType;
@@ -121,10 +137,11 @@ type
  CompositeOperator = (
   UndefinedCompositeOp,
   NoCompositeOp,
-  AddCompositeOp,
+  ModulusAddCompositeOp,
   AtopCompositeOp,
   BlendCompositeOp,
   BumpmapCompositeOp,
+  ChangeMaskCompositeOp,
   ClearCompositeOp,
   ColorBurnCompositeOp,
   ColorDodgeCompositeOp,
@@ -152,8 +169,9 @@ type
   HueCompositeOp,
   InCompositeOp,
   LightenCompositeOp,
+  LinearLightCompositeOp,
   LuminizeCompositeOp,
-  MinusCompositeOp,
+  MinusDstCompositeOp,
   ModulateCompositeOp,
   MultiplyCompositeOp,
   OutCompositeOp,
@@ -169,9 +187,27 @@ type
   SrcInCompositeOp,
   SrcOutCompositeOp,
   SrcOverCompositeOp,
-  SubtractCompositeOp,
+  ModulusSubtractCompositeOp,
   ThresholdCompositeOp,
-  XorCompositeOp
+  XorCompositeOp,
+  // These are new operators, added after the above was last sorted.
+  // The list should be re-sorted only when a new library version is
+  // created.
+  DivideDstCompositeOp,
+  DistortCompositeOp,
+  BlurCompositeOp,
+  PegtopLightCompositeOp,
+  VividLightCompositeOp,
+  PinLightCompositeOp,
+  LinearDodgeCompositeOp,
+  LinearBurnCompositeOp,
+  MathematicsCompositeOp,
+  DivideSrcCompositeOp,
+  MinusSrcCompositeOp,
+  DarkenIntensityCompositeOp,
+  LightenIntensityCompositeOp,
+  HardMixCompositeOp,
+  StereoCompositeOp
  );
 
   PCompositeOperator = ^CompositeOperator;
@@ -179,28 +215,30 @@ type
 type
   // Verified with imagemagick 6.7.7-10
   CompressionType = (
-    UndefinedCompression,
-    NoCompression,
-    BZipCompression,
-    DXT1Compression,
-    DXT3Compression,
-    DXT5Compression,
-    FaxCompression,           {* CCITT Group 3 compression *}
-    Group4Compression,        {* CCITT Group 4 compression (also used in faxes) *}
-    JPEGCompression,
-    JPEG2000Compression,      {* ISO/IEC std 15444-1 *}
-    LosslessJPEGCompression,
-    LZWCompression,
-    RLECompression,
-    ZipCompression,
-    ZipSCompression,
-    PizCompression,
-    Pxr24Compression,
-    B44Compression,
-    B44ACompression,
-    LZMACompression,          {* Lempel-Ziv-Markov chain algorithm *}
-    JBIG1Compression,         {* ISO/IEC std 11544 / ITU-T rec T.82 *}
-    JBIG2Compression          {* ISO/IEC std 14492 / ITU-T rec T.88 *}
+  UndefinedCompression,
+  NoCompression,
+  BZipCompression,
+  DXT1Compression,
+  DXT3Compression,
+  DXT5Compression,
+  FaxCompression,
+  Group4Compression,
+  JPEGCompression,
+  JPEG2000Compression,      // ISO/IEC std 15444-1 */
+  LosslessJPEGCompression,
+  LZWCompression,
+  RLECompression,
+  ZipCompression,
+  ZipSCompression,
+  PizCompression,
+  Pxr24Compression,
+  B44Compression,
+  B44ACompression,
+  LZMACompression,            // Lempel-Ziv-Markov chain algorithm */
+  JBIG1Compression,           // ISO/IEC std 11544 / ITU-T rec T.82 */
+  JBIG2Compression,           // ISO/IEC std 14492 / ITU-T rec T.88 */
+  ZstdCompression,
+  WebPCompression
   );
 
   PCompressionType = ^CompressionType;
@@ -295,7 +333,7 @@ type
   PExceptionType = ^ExceptionType;
 
 type
- FilterTypes = (
+ FilterType = (
   UndefinedFilter,
   PointFilter,
   BoxFilter,
@@ -309,12 +347,28 @@ type
   CubicFilter,
   CatromFilter,
   MitchellFilter,
+  JincFilter,
+  SincFilter,
+  SincFastFilter,
+  KaiserFilter,
+  WelshFilter,
+  ParzenFilter,
+  BohmanFilter,
+  BartlettFilter,
+  LagrangeFilter,
   LanczosFilter,
-  BesselFilter,
-  SincFilter
+  LanczosSharpFilter,
+  Lanczos2Filter,
+  Lanczos2SharpFilter,
+  RobidouxFilter,
+  RobidouxSharpFilter,
+  CosineFilter,
+  SplineFilter,
+  LanczosRadiusFilter,
+  SentinelFilter  // a count of all the filters, not a real filter */
  );
 
-  PFilterTypes = ^FilterTypes;
+  PFilterType = ^FilterType;
 
 const
   UndefinedGravity = 0;
@@ -346,7 +400,8 @@ type ImageType = (
   TrueColorMatteType,
   ColorSeparationType,
   ColorSeparationMatteType,
-  OptimizeType
+  OptimizeType,
+  PaletteBilevelMatteType
  );
 
   PImageType = ^ImageType;
@@ -357,7 +412,10 @@ type
   NoInterlace,
   LineInterlace,
   PlaneInterlace,
-  PartitionInterlace
+  PartitionInterlace,
+  GIFInterlace,
+  JPEGInterlace,
+  PNGInterlace
  );
 
   PInterlaceType = ^InterlaceType;
@@ -463,7 +521,7 @@ type
   ColorPacket = record
    pixel: PixelPacket;
    index: IndexPacket;
-   count: culong;
+   count: MagickSizeType;
   end;
   
   PColorPacket = ^ColorPacket;
@@ -481,17 +539,17 @@ type
 type 
   ProfileInfo = record
    name: PAnsiChar;
-   length: cint;
+   length: culong;
    info: PAnsiChar;
    signature: culong;
   end;
-  
+
   PProfileInfo = ^ProfileInfo;
 
-type 
+type
   RectangleInfo = record
    width, height: culong;
-   x, y: culong;
+   x, y: cint;
   end;
 
 type
@@ -522,10 +580,8 @@ type
 
 type
   ExceptionInfo = record
-   //severity: ExceptionType;
-   //error_number: Shortint;
-   severity: culong;
-   error_number: culong;
+   severity: ExceptionType;
+   error_number: Shortint;
    reason, description: PAnsiChar;
 	 exceptions: Pointer;
 	 relinquish: MagickBooleanType;
@@ -544,6 +600,7 @@ type
    const sizetype: MagickSizeType; param: Pointer): PMagickBooleanType;
 
 type
+  PImage = ^Image;
   Image = record
    storage_class: ClassType;
    colorspace: ColorspaceType;
@@ -564,14 +621,16 @@ type
    x_resolution, y_resolution: double;
    page, extract_info, tile_info: RectangleInfo;  // deprecated
    bias, blur, fuzz: double;
-   filter: FilterTypes;
+   filter: FilterType;
    interlace: InterlaceType;
    endian: EndianType;
    gravity: GravityType;
    compose: CompositeOperator;
    dispose: DisposeType;
-   clip_mask: Pointer; // PImage
-   scene, delay, ticks_per_second, iterations, total_colors: culong;
+   clip_mask: PImage; // PImage
+   scene, delay: culong;
+   ticks_per_second: cint;
+   iterations, total_colors: culong;
    start_loop: cint;
    error: ErrorInfo;
    timer: TimerInfo;
@@ -591,14 +650,10 @@ type
    generic_profile: PProfileInfo;
    generic_profiles: culong;  // this & ProfileInfo is deprecated
    signature: culong;
-   previous, list, next: Pointer;
-{  struct _Image
-    *previous,
-    *list,
-    *next;}
+   previous, list, next: PImage;
  end;
  
- PImage = ^Image;
+// PImage = ^Image;
 
 //type
 //  size_t = PStreamHandler(procedure (const image: PImage;
@@ -623,7 +678,7 @@ type
    colorspace: ColorspaceType;
    type_: ImageType ;
    preview_type: PreviewType;
-   group: Longint;
+   group: cint;
    ping, verbose: MagickBooleanType;
    view, authenticate: PAnsiChar;
    channel: ChannelType;
@@ -631,10 +686,10 @@ type
    options: Pointer;
    progress_monitor: MagickProgressMonitor;
    client_data, cache: Pointer;
-   stream: culong; //StreamHandler;
+   stream: Pointer; //StreamHandler;
    file_: Pointer; // *file
    blob: Pointer;
-   length: cint;
+   length: culong;
    magick, unique, zero, filename: array[1..MaxTextExtent] of char;
    debug: MagickBooleanType;
 

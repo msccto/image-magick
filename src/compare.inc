@@ -21,11 +21,17 @@
 type
  MetricType = (
   UndefinedMetric,
+  AbsoluteErrorMetric,
   MeanAbsoluteErrorMetric,
+  MeanErrorPerPixelMetric,
   MeanSquaredErrorMetric,
   PeakAbsoluteErrorMetric,
   PeakSignalToNoiseRatioMetric,
-  RootMeanSquaredErrorMetric
+  RootMeanSquaredErrorMetric,
+  NormalizedCrossCorrelationErrorMetric,
+  FuzzErrorMetric,
+  UndefinedErrorMetric = 0,
+  PerceptualHashErrorMetric = $ff
  );
 
 {extern MagickExport Image
