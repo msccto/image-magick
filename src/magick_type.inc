@@ -25,7 +25,7 @@ const
   MagickTrue = 1;
 
 type
-  MagickBooleanType = culong;
+  MagickBooleanType = cardinal;
 
   PMagickBooleanType = ^MagickBooleanType;
 
@@ -640,7 +640,7 @@ type
    attributes: Pointer;
    ascii85: Pointer; //_Ascii85Info_
    blob: Pointer; // _BlobInfo_
-   filename, magick_filename, magick: array[1..MaxTextExtent] of char;
+   filename, magick_filename, magick: array[1..MaxTextExtent] of AnsiChar;
    magick_columns, magick_rows: culong;
    exception: ExceptionInfo;
    debug: MagickBooleanType;
@@ -690,7 +690,7 @@ type
    file_: Pointer; // *file
    blob: Pointer;
    length: culong;
-   magick, unique, zero, filename: array[1..MaxTextExtent] of char;
+   magick, unique, zero, filename: array[1..MaxTextExtent] of AnsiChar;
    debug: MagickBooleanType;
 
   {

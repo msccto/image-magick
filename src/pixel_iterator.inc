@@ -69,7 +69,7 @@ type
   PixelIterator = record
     id: culong;
 
-    name: array[0..MaxTextExtent] of char;
+    name: array[0..MaxTextExtent] of AnsiChar;
 
     exception: PExceptionInfo;
 

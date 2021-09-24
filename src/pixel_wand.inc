@@ -24,7 +24,7 @@ type
   PixelWand = record
     id: culong;
 
-    name: array[1..MaxTextExtent] of char;
+    name: array[1..MaxTextExtent] of AnsiChar;
 
     exception: PExceptionInfo;
 

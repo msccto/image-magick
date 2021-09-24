@@ -45,12 +45,12 @@ uses
 type
   MagickWand = record
     id: culong;
-    name: array[1..MaxTextExtent] of Char;
-    exception: ExceptionInfo;
+    name: array[1..MaxTextExtent] of AnsiChar;
+    exception: PExceptionInfo;
     image_info: PImageInfo;
     quantize_info: PQuantizeInfo;
     images: PImage;
-    active, pend, debug: MagickBooleanType;
+    insert_before, image_pending, debug: MagickBooleanType;
     signature: culong;
   end;
 

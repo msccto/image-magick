@@ -44,7 +44,7 @@ type
   DrawingWand = record
     id: culong;
 
-    name: array[0..MaxTextExtent] of Char;
+    name: array[0..MaxTextExtent] of AnsiChar;
 
     { Support structures }
   
