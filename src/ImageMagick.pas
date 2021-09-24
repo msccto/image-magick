@@ -130,8 +130,9 @@ const
 #include "magick/token.h"
 #include "magick/transform.h"
 #include "magick/utility.h"
-#include "magick/version.h"
-#include "magick/xwindow.h"}
+#include "magick/version.h"}
+{$include version.inc}
+{#include "magick/xwindow.h"}
 
 function TryInitializeImageMagick: Boolean;
 procedure FinalizeImageMagick;
@@ -157,6 +158,9 @@ var
 
 // ----------------------------------------------------------------------------------
 function TryInitializeImageMagick: Boolean;
+var
+  FVersion : String;
+  FVerNum  : cardinal;
 begin
   FLock.Acquire;
   try
@@ -167,6 +171,11 @@ begin
       if Result then
       begin
         GetAuthenticPixels := GetProcAddress(FModule, 'GetAuthenticPixels');
+        GetMagickVersion := GetProcAddress(FModule, 'GetMagickVersion');
+
+        FVersion := GetMagickVersion(@FVerNum);
+        TccConsole.Log('ImageMagick version info: ' + FVersion + ' - ' + IntToStr(FVerNum));
+
         Result := TryInitializeImageMagickWand;
         GInitializedImageMagick := True;
       end;
