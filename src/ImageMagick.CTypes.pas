@@ -53,10 +53,10 @@ type
 
   cbool                  = longbool;           pcbool                 = ^cbool;
 
-{$ifdef cpu64}
+{$ifdef cpux64}
   clong                  = int64;              pclong                 = ^clong;
   cslong                 = int64;              pcslong                = ^cslong;
-  culong                 = qword;              pculong                = ^culong;
+  culong                 = int64;              pculong                = ^culong;
 {$else}
   clong                  = longint;            pclong                 = ^clong;
   cslong                 = longint;            pcslong                = ^cslong;
