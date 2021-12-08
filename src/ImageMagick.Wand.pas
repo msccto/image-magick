@@ -546,6 +546,10 @@ begin
       MagickGetInterlaceScheme := GetProcAddress(FModule, 'MagickGetInterlaceScheme');
       MagickSetResolution := GetProcAddress(FModule, 'MagickSetResolution');
 
+      MagickExtentImage := GetProcAddress(FModule, 'MagickExtentImage');
+      MagickGetImageGravity := GetProcAddress(FModule, 'MagickGetImageGravity');
+      MagickSetImageGravity := GetProcAddress(FModule, 'MagickSetImageGravity');
+
       GInitializedImageMagick := True;
       MagickWandGenesis;
     end;

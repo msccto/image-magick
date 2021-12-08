@@ -281,6 +281,10 @@ MagickGetImageScene: function(wand: PMagickWand): culong; cdecl;
 MagickGetImageWidth: function(wand: PMagickWand): culong; cdecl;
 MagickGetNumberImages: function(wand: PMagickWand): culong; cdecl;
 
+MagickExtentImage: function(wand: PMagickWand; const width, height: culong; const x, y: clong): MagickBooleanType; cdecl;
+MagickSetImageGravity: function(wand: PMagickWand; const gravity_type: GravityType ): MagickBooleanType; cdecl;
+MagickGetImageGravity: function(wand: PMagickWand): GravityType; cdecl;
+
 //function MagickGetImageVirtualPixelMethod(wand: PMagickWand): VirtualPixelMethod; cdecl;
 
 {
